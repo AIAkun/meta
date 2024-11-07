@@ -1,0 +1,31 @@
+#minced获取crisprs（服务器）
+conda activate ViWrap
+/home/meta/metagenomic/softs/minced/minced  -minNR 5 virus_host.fasta virus_host.crisprs
+
+#整理crisprs（下载virus_host.crisprs到本地）
+get_crisprs.py
+cmd:python get_crisprs.py
+输入virus_host.crisprs
+输出host_scrisprs.id，crisprs.fasta
+tail +2 scrisprs.id | cut -f1> host.id
+
+conda activate metagenomic
+#根据id获取host序列（上传host.id到服务器）
+seqkit grep -f host.id virus_host.fasta > final_host_seq.fasta
+
+#获取host序列注释
+blastn -db /data/metagenomic/virus_host -query  final_host_seq.fasta -perc_identity 80 -qcov_hsp_perc 80 -max_target_seqs 5 -num_threads 50 -evalue 1e-5 -outfmt 6 -out mMags.map
+sed -i "1i query\tsubject\tidentity_percent\talignment length\tmismatches\tgap opens\tq_start\tq_end\ts_start\ts_end\tevalue\tbit score" mMags.map
+python /home/meta/metagenomic/pipeline/pipe_script/blast_best.py mMags.map mMags_mapbest.xls
+python /home/meta/metagenomic/pipeline/pipe_script/merge2.py --nt /data/metagenomic/baf_lineage.txt --i mMags_mapbest.xls --o mMags_mapbest_anno.xls
+
+#获取crisprs序列注释
+blastn -task blastn-short -db /home/meta/metagenomic/database/virus_blastn/virus_blastn -query  crisprs.fasta -outfmt 6 -qcov_hsp_perc 100 -num_threads 50 -out spacersmapcrisprs.out
+awk '{if($5<=2) print $0}' spacersmapcrisprs.out > spacersmapcrisprs.out.filt.txt
+sed -i "1i query\tsubject\tidentity_percent\talignment length\tmismatches\tgap opens\tq_start\tq_end\ts_start\ts_end\tevalue\tbit score" spacersmapcrisprs.out.filt.txt
+python /home/meta/metagenomic/pipeline/pipe_script/blast_best.py spacersmapcrisprs.out.filt.txt spacersmapcrisprs_best.xls
+python /home/meta/metagenomic/pipeline/pipe_script/merge2.py --nt /home/meta/metagenomic/database/virus_blastn/virus-blastn_anno.txt --i spacersmapcrisprs_best.xls --o crisprs_mapbest_anno.xls
+
+#合并信息（下载mMags_mapbest_anno.xls，crisprs_mapbest_anno.xls，host_scrisprs.id到本地）
+get_crisprs_result.py
+cmd:python get_crisprs_result.py --ha mMags_mapbest_anno.xls --sa crisprs_mapbest_anno.xls --i host_scrisprs.id --o output.xls
