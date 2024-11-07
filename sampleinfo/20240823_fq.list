@@ -1,0 +1,12 @@
+#Sample	R1	R2
+#Sample	R1	R2
+#Sample	R1	R2
+S200038195_L01	/data/metagenomic/rawdata/20240823/S200038195_L01_1.fq.gz	/data/metagenomic/rawdata/20240823/S200038195_L01_2.fq.gz
+S200038195_L01_3	/data/metagenomic/rawdata/20240823/S200038195_L01_3_1.fq.gz	/data/metagenomic/rawdata/20240823/S200038195_L01_3_2.fq.gz
+S200038195_L01_41	/data/metagenomic/rawdata/20240823/S200038195_L01_41_1.fq.gz	/data/metagenomic/rawdata/20240823/S200038195_L01_41_2.fq.gz
+S200038195_L01_42	/data/metagenomic/rawdata/20240823/S200038195_L01_42_1.fq.gz	/data/metagenomic/rawdata/20240823/S200038195_L01_42_2.fq.gz
+S200038195_L01_43	/data/metagenomic/rawdata/20240823/S200038195_L01_43_1.fq.gz	/data/metagenomic/rawdata/20240823/S200038195_L01_43_2.fq.gz
+S200038195_L01_44	/data/metagenomic/rawdata/20240823/S200038195_L01_44_1.fq.gz	/data/metagenomic/rawdata/20240823/S200038195_L01_44_2.fq.gz
+S200038195_L01_46	/data/metagenomic/rawdata/20240823/S200038195_L01_46_1.fq.gz	/data/metagenomic/rawdata/20240823/S200038195_L01_46_2.fq.gz
+S200038195_L01_47	/data/metagenomic/rawdata/20240823/S200038195_L01_47_1.fq.gz	/data/metagenomic/rawdata/20240823/S200038195_L01_47_2.fq.gz
+S200038195_L01_48	/data/metagenomic/rawdata/20240823/S200038195_L01_48_1.fq.gz	/data/metagenomic/rawdata/20240823/S200038195_L01_48_2.fq.gz
